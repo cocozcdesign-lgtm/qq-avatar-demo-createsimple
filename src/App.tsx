@@ -231,6 +231,7 @@ const App: React.FC = () => {
   const [editable, setEditable] = useState(initialSettings.editable);
   const [avatarEffect, setAvatarEffect] = useState<AvatarEffect>(initialSettings.avatarEffect);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dateTab, setDateTab] = useState<'4.22' | '4.23'>('4.23');
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -258,10 +259,26 @@ const App: React.FC = () => {
   const saveExitKeys = ['saveexit-shrink', 'saveexit-flyout'];
   const introKeys = ['intro-replace', 'intro-stack'];
   const handleSelect = (key: string) => {
+    // 4.23 tab 下点击未登录时，自动应用渗透流程预设
     if (key === 'logged-in') { setIsLoggedIn(true); setMenuOpen(false); return; }
-    if (key === 'logged-out') { setIsLoggedIn(false); setMenuOpen(false); return; }
+    if (key === 'logged-out') {
+      setIsLoggedIn(false);
+      if (dateTab === '4.23') {
+        // 自动切换到 4.23 预设
+        setFlowType('infiltrate');
+        setAvatarEffect('energy-ring');
+        setTransitionVariant('shrink');
+        setAwakenVariant('auto');
+        setIntroVariant('replace');
+        setSaveVariant('simple');
+        setSaveExitVariant('shrink-to-corner');
+      }
+      setMenuOpen(false);
+      return;
+    }
     if (key.startsWith('effect-')) {
       setAvatarEffect(key.replace('effect-', '') as AvatarEffect);
+      if (dateTab === '4.23') setFlowType('infiltrate');
       setMenuOpen(false);
       return;
     }
@@ -303,6 +320,12 @@ const App: React.FC = () => {
   // 智能隐藏：某组的所有选项都不可用时，整组隐藏
   const isGroupVisible = (group: string): boolean => {
     if (group === '登录状态') return true;
+    // 4.23 tab：只显示部分分组
+    if (dateTab === '4.23') {
+      const allowedGroups423 = ['登录状态', '① 吸引注意', '流程类型', '渗透过渡', '唤醒方案', '引言方案', '保存方案', '保存退出'];
+      return allowedGroups423.includes(group);
+    }
+    // 4.22 tab：原有逻辑
     // 四大类入口方案：仅未登录显示
     if (['① 吸引注意', '② 角色化引导', '③ 负向施压', '④ 直白告知'].includes(group)) return !isLoggedIn;
     if (group === '流程类型') return !isLoggedIn;
@@ -405,10 +428,61 @@ const App: React.FC = () => {
             boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             animation: 'menuFadeIn 150ms ease-out',
           }}>
+            {/* 日期 Tab */}
+            <div style={{ display: 'flex', margin: '4px 10px 6px', background: 'rgba(255,255,255,0.08)', borderRadius: 8, padding: 2 }}>
+              {(['4.22', '4.23'] as const).map(tab => (
+                <div
+                  key={tab}
+                  onClick={() => {
+                    setDateTab(tab);
+                    if (tab === '4.23') {
+                      // 自动应用 4.23 预设
+                      setIsLoggedIn(false);
+                      setFlowType('infiltrate');
+                      setAvatarEffect('energy-ring');
+                      setTransitionVariant('shrink');
+                      setAwakenVariant('auto');
+                      setIntroVariant('replace');
+                      setSaveVariant('simple');
+                      setSaveExitVariant('shrink-to-corner');
+                    }
+                  }}
+                  style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    padding: '5px 0',
+                    fontSize: 12,
+                    fontFamily: 'PingFang SC, sans-serif',
+                    color: dateTab === tab ? '#fff' : 'rgba(255,255,255,0.45)',
+                    background: dateTab === tab ? 'rgba(90,200,250,0.3)' : 'transparent',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    fontWeight: dateTab === tab ? 600 : 400,
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {tab}
+                </div>
+              ))}
+            </div>
             {(() => { visibleGroupIdx = 0; return null; })()}
             {groups.map((group) => {
               if (!isGroupVisible(group)) return null;
-              const opts = menuOptions.filter(o => o.group === group);
+              let opts = menuOptions.filter(o => o.group === group);
+              // 4.23 tab 只显示指定方案
+              if (dateTab === '4.23') {
+                const allowedKeys = new Set([
+                  'logged-in', 'logged-out',
+                  'effect-energy-ring',
+                  'flow-infiltrate',
+                  'trans-shrink',
+                  'awaken-auto',
+                  'intro-replace',
+                  'save-simple',
+                  'saveexit-shrink',
+                ]);
+                opts = opts.filter(o => allowedKeys.has(o.key));
+              }
               if (opts.length === 0) return null;
               const showDivider = visibleGroupIdx > 0;
               visibleGroupIdx++;
