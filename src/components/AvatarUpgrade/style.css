@@ -1,0 +1,2571 @@
+/* ========== 遮罩层 ========== */
+.upgrade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 428px;
+  height: 932px;
+  background: rgba(0, 0, 0, 0.50);
+  z-index: 100;
+  animation: overlayFadeIn 300ms ease-out forwards;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== 半屏浮层 ========== */
+.upgrade-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 428px;
+  height: 640px;
+  background: #EEF7FF;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0px -3.5px 8.76px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  animation: sheetSlideUp 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.upgrade-sheet-closing {
+  animation: sheetSlideDown 300ms ease-in forwards;
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sheetSlideDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+/* ========== 蓝色渐变背景 ========== */
+.upgrade-gradient-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 428px;
+  height: 640px;
+  background: linear-gradient(
+    0deg,
+    rgba(236, 246, 255, 0.60) 0%,
+    rgba(114, 189, 255, 0) 87%
+  );
+  pointer-events: none;
+}
+
+/* ========== 升级背景插图（dissolve 渐显） ========== */
+.upgrade-bg-illustration {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: bgDissolveIn 2000ms ease-out forwards;
+}
+
+@keyframes bgDissolveIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== 边缘渐隐遮罩 ========== */
+.upgrade-edge-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 12px 12px 0 0;
+  background:
+    linear-gradient(to right, #EEF7FF 0%, transparent 12%, transparent 88%, #EEF7FF 100%),
+    linear-gradient(to bottom, #EEF7FF 0%, transparent 10%, transparent 75%, #EEF7FF 100%);
+  background-blend-mode: normal;
+  mask: none;
+}
+
+/* ========== 顶部关闭按钮 ========== */
+.upgrade-header {
+  position: relative;
+  width: 428px;
+  height: 46px;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 2;
+}
+
+.upgrade-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 17px;
+  line-height: 20px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 600;
+  color: #1A1C1E;
+  letter-spacing: 0px;
+  white-space: nowrap;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.upgrade-close-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.upgrade-close-btn:active {
+  opacity: 0.5;
+}
+
+/* ========== 气泡对话 ========== */
+.upgrade-bubbles {
+  position: relative;
+  padding: 0 24px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.upgrade-bubbles-hide {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.upgrade-bubble {
+  background: white;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: #1A1C1E;
+  display: inline-block;
+  width: auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms ease, transform 500ms ease;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.upgrade-bubble-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.upgrade-bubble-second {
+  display: inline-block;
+}
+
+.upgrade-bubble-bold {
+  font-weight: 600;
+}
+
+/* ========== 渗透流程：纯文字引言（同一位置逐句切换） ========== */
+.infiltrate-intro {
+  position: absolute;
+  bottom: 170px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  overflow: visible;
+  transition: opacity 800ms ease, transform 800ms ease;
+}
+
+/* 堆叠方案：文案逐句出现全部留在页面 */
+.infiltrate-intro.infiltrate-intro-stack {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  bottom: 80px;
+  gap: 8px;
+}
+
+.infiltrate-intro-hide {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.infiltrate-intro-line {
+  position: absolute;
+  font-size: 20px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.infiltrate-intro-line-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.infiltrate-intro-line-hide {
+  opacity: 0 !important;
+  transform: translateY(-6px) !important;
+}
+
+/* 堆叠方案文案行 */
+.infiltrate-intro-stack-line {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms ease, transform 500ms ease;
+  line-height: 1.6;
+}
+
+.infiltrate-intro-stack-line-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.infiltrate-intro-bold {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* 唤醒QQ秀按钮组 */
+.infiltrate-awaken-group {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 600ms ease 400ms, transform 600ms ease 400ms;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.infiltrate-awaken-group-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* 堆叠方案中的按钮组：正常流排列 */
+.infiltrate-awaken-group.infiltrate-awaken-group-stacked {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: translateY(12px);
+  margin-top: 12px;
+}
+
+.infiltrate-awaken-group.infiltrate-awaken-group-stacked.infiltrate-awaken-group-show {
+  transform: translateY(0);
+}
+
+/* 左侧 tweak 按钮（灰色圆角方形） */
+.infiltrate-awaken-tweak {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.infiltrate-awaken-tweak:active {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+}
+
+/* 右侧蓝色主按钮 */
+.infiltrate-awaken-btn-main {
+  height: 48px;
+  padding: 0 40px;
+  border: none;
+  border-radius: 14px;
+  background: #4A9FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.infiltrate-awaken-btn-main:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.infiltrate-awaken-btn-text {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+/* 唤醒QQ秀：单独蓝色按钮（不带 tweak） */
+.infiltrate-awaken-btn-solo {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  transition: opacity 600ms ease 400ms, transform 600ms ease 400ms;
+  pointer-events: none;
+}
+
+.infiltrate-awaken-btn-solo-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.infiltrate-awaken-btn-solo:active {
+  opacity: 0.85;
+  transform: translateX(-50%) scale(0.98);
+}
+
+/* 堆叠方案中的单独按钮 */
+.infiltrate-awaken-btn-solo.infiltrate-awaken-btn-solo-stacked {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: translateY(12px);
+  margin-top: 12px;
+}
+
+.infiltrate-awaken-btn-solo.infiltrate-awaken-btn-solo-stacked.infiltrate-awaken-btn-solo-show {
+  transform: translateY(0);
+}
+
+.infiltrate-awaken-btn-solo.infiltrate-awaken-btn-solo-stacked:active {
+  transform: scale(0.98);
+}
+
+/* ========== 渗透流程：头像能量场（向上飘动的升级箭头） ========== */
+.infiltrate-energy-field {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 360px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  animation: energyFieldFadeIn 1000ms ease-out forwards;
+}
+
+@keyframes energyFieldFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 底层柔光晕 */
+.energy-glow-base {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(120, 200, 255, 0.12) 0%,
+    rgba(120, 200, 255, 0.06) 40%,
+    rgba(120, 200, 255, 0) 70%
+  );
+  animation: glowBasePulse 3s ease-in-out infinite;
+}
+
+@keyframes glowBasePulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* 飘动的升级箭头 */
+.energy-arrow {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 0 4px rgba(180, 220, 255, 0.8)) drop-shadow(0 0 10px rgba(120, 190, 255, 0.5));
+  animation: arrowFloat var(--arrow-duration) ease-in-out var(--arrow-delay) infinite;
+  opacity: 0;
+}
+
+.energy-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 12 个箭头：围绕头像不同位置，不同大小/速度/延迟 */
+.energy-arrow-1  { --arrow-duration: 2.8s; --arrow-delay: 0s;   left: 10%;  bottom: 20%; width: 18px; height: 18px; }
+.energy-arrow-2  { --arrow-duration: 3.2s; --arrow-delay: 0.4s; left: 25%;  bottom: 15%; width: 14px; height: 14px; }
+.energy-arrow-3  { --arrow-duration: 2.5s; --arrow-delay: 0.9s; left: 42%;  bottom: 10%; width: 20px; height: 20px; }
+.energy-arrow-4  { --arrow-duration: 3.0s; --arrow-delay: 1.3s; left: 58%;  bottom: 18%; width: 16px; height: 16px; }
+.energy-arrow-5  { --arrow-duration: 2.6s; --arrow-delay: 0.6s; left: 75%;  bottom: 12%; width: 18px; height: 18px; }
+.energy-arrow-6  { --arrow-duration: 3.4s; --arrow-delay: 1.8s; left: 88%;  bottom: 22%; width: 12px; height: 12px; }
+.energy-arrow-7  { --arrow-duration: 2.9s; --arrow-delay: 0.2s; left: 5%;   bottom: 35%; width: 12px; height: 12px; }
+.energy-arrow-8  { --arrow-duration: 3.1s; --arrow-delay: 1.0s; left: 92%;  bottom: 30%; width: 14px; height: 14px; }
+.energy-arrow-9  { --arrow-duration: 2.4s; --arrow-delay: 1.5s; left: 18%;  bottom: 5%;  width: 16px; height: 16px; }
+.energy-arrow-10 { --arrow-duration: 3.3s; --arrow-delay: 0.7s; left: 68%;  bottom: 8%;  width: 14px; height: 14px; }
+.energy-arrow-11 { --arrow-duration: 2.7s; --arrow-delay: 2.0s; left: 35%;  bottom: 25%; width: 10px; height: 10px; }
+.energy-arrow-12 { --arrow-duration: 3.0s; --arrow-delay: 1.2s; left: 82%;  bottom: 38%; width: 10px; height: 10px; }
+
+@keyframes arrowFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  15% {
+    opacity: 0.9;
+    transform: translateY(-20px) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-70px) scale(0.9);
+  }
+  80% {
+    opacity: 0.3;
+    transform: translateY(-120px) scale(0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-160px) scale(0.5);
+  }
+}
+
+/* ========== 头像展示区域 ========== */
+.upgrade-avatar-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -80px;
+  height: 400px;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  perspective: 800px;
+  overflow: visible;
+}
+
+.upgrade-avatar-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 渗透流程：头像居中于半屏 */
+.upgrade-avatar-area-center {
+  margin-top: 0;
+  position: absolute;
+  top: calc(50% - 30px);
+  left: 50%;
+  transform: scale(0.6) translate(-50%, -50%);
+  transform-origin: 0 0;
+}
+
+/* 堆叠文案方案：头像上移80px腾出文案空间 */
+.upgrade-avatar-area-center.upgrade-avatar-area-raised {
+  top: calc(50% - 80px);
+}
+
+.upgrade-avatar-area-center.upgrade-avatar-show {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+.upgrade-avatar-area-center.upgrade-avatar-area-fadeout {
+  transform: scale(0.9) translate(-50%, -50%) !important;
+}
+
+/* 头像+标签 wrapper */
+.upgrade-avatar-tags-wrapper {
+  position: relative;
+  width: 428px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrade-float-wrapper-active {
+  animation: floatLoop 6s ease-in-out infinite;
+}
+
+/* ========== 标签环 —— 费那奇镜旋转 ========== */
+.upgrade-tags-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+.upgrade-tags-ring-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========== 标签 ========== */
+.upgrade-tag {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 300ms ease;
+}
+
+.upgrade-tag-text {
+  font-size: 13px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #1A1C1E;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* 可编辑态 */
+.upgrade-tag-editable {
+  cursor: pointer;
+}
+
+/* 未激活态 */
+.upgrade-tag-inactive {
+  opacity: 0.35;
+}
+
+/* ========== 推荐标签（外围半透明气泡） ========== */
+.upgrade-suggest-tag {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 400ms ease, opacity 400ms ease, border-color 400ms ease;
+  animation: suggestFadeIn 600ms ease-out forwards;
+  opacity: 0;
+}
+
+.upgrade-suggest-tag-active {
+  background: white;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.upgrade-suggest-tag-text {
+  font-size: 11px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  line-height: 1.15;
+  transition: color 400ms ease;
+}
+
+.upgrade-suggest-tag-active .upgrade-suggest-tag-text {
+  font-weight: 500;
+  color: #1A1C1E;
+}
+
+@keyframes suggestFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(var(--tag-ox), var(--tag-oy)) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* 头像缩小 */
+.upgrade-avatar-shrink {
+  width: 144px !important;
+  height: 144px !important;
+}
+
+/* ========== 升级动画 ========== */
+
+/* 点亮的推荐标签汇聚到中心（在头像后面） */
+.upgrade-tag-converge {
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1), opacity 700ms ease !important;
+  transform: translate(var(--tag-ox), var(--tag-oy)) scale(0) !important;
+  opacity: 0 !important;
+  z-index: -1;
+}
+
+/* 点亮的内圈标签汇聚到中心 */
+.upgrade-tag-converge-inner {
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1), opacity 700ms ease !important;
+  opacity: 0 !important;
+  z-index: -1;
+}
+
+/* 未点亮的标签原地 dissolve */
+.upgrade-tag-dissolve {
+  transition: opacity 500ms ease !important;
+  opacity: 0 !important;
+}
+
+/* 升级时标签环不再旋转 */
+.upgrade-tags-ring-upgrading {
+  transition: none !important;
+}
+
+/* 头像放大（从缩小态恢复并继续放大） */
+.upgrade-avatar-expand {
+  width: 260px !important;
+  height: 260px !important;
+  transition: width 800ms cubic-bezier(0.4, 0, 0.2, 1), height 800ms cubic-bezier(0.4, 0, 0.2, 1), border-radius 800ms ease !important;
+  animation: none !important;
+  z-index: 5;
+}
+
+/* 头像边框扩展，变为完整原图尺寸 */
+.upgrade-avatar-reveal {
+  width: 280px !important;
+  height: 350px !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1), height 700ms cubic-bezier(0.4, 0, 0.2, 1), border-radius 700ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* ========== 3D 翻面卡片 ========== */
+.upgrade-flip-card {
+  width: 239px;
+  height: 239px;
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: 50%;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1), height 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upgrade-flip-active {
+  animation: flipLoop 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes flipLoop {
+  0% {
+    transform: rotateY(0deg);
+  }
+  30% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+  80% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.upgrade-flip-front,
+.upgrade-flip-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.upgrade-flip-front {
+  z-index: 2;
+  background: #e8e8e8;
+}
+
+.upgrade-flip-back {
+  transform: rotateY(180deg);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrade-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* phase 10: 原图缓缓渐隐 */
+.upgrade-avatar-img-fadeout {
+  opacity: 0;
+}
+
+/* 去背景图（叠在原图上方，初始透明） */
+.upgrade-avatar-nobg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
+  height: 115%;
+  object-fit: contain;
+  display: block;
+  opacity: 0;
+  transition: opacity 1400ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* phase 10: 去背景图缓缓渐显 */
+.upgrade-avatar-nobg-show {
+  opacity: 1;
+}
+
+/* phase 10: 容器进入透明人物模式 */
+.upgrade-avatar-nobg-mode {
+  overflow: visible !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: border-radius 1200ms ease, background 1200ms ease, overflow 0ms !important;
+}
+
+/* ========== 扫光效果 ========== */
+.upgrade-shine-sweep {
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 40%;
+  height: 140%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 0.08) 42%,
+    rgba(255, 255, 255, 0.35) 48%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.35) 52%,
+    rgba(255, 255, 255, 0.08) 58%,
+    rgba(255, 255, 255, 0) 65%,
+    transparent 65%,
+    transparent 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+  animation: shineSweep 2s ease forwards;
+}
+
+@keyframes shineSweep {
+  0% { left: -60%; opacity: 0; }
+  3% { opacity: 1; }
+  45% { left: 160%; opacity: 1; }
+  48% { left: 160%; opacity: 0; }
+
+  52% { left: -60%; opacity: 0; }
+  55% { opacity: 1; }
+  95% { left: 160%; opacity: 1; }
+  100% { left: 160%; opacity: 0; }
+}
+
+/* ========== 人像扫光扫描（phase 11） ========== */
+.upgrade-portrait-sweep {
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 30%;
+  height: 140%;
+  background: linear-gradient(
+    95deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.06) 38%,
+    rgba(255, 255, 255, 0.18) 44%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.18) 56%,
+    rgba(255, 255, 255, 0.06) 62%,
+    rgba(255, 255, 255, 0) 70%,
+    transparent 70%,
+    transparent 100%
+  );
+  z-index: 12;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: portraitSweep 2.5s ease forwards;
+}
+
+@keyframes portraitSweep {
+  0% { left: -60%; opacity: 0; }
+  3% { opacity: 1; }
+  42% { left: 160%; opacity: 1; }
+  46% { left: 160%; opacity: 0; }
+
+  50% { left: -60%; opacity: 0; }
+  53% { opacity: 1; }
+  93% { left: 160%; opacity: 1; }
+  100% { left: 160%; opacity: 0; }
+}
+
+/* ========== 人像描边方案（phase 11 outline） ========== */
+.upgrade-portrait-outline-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
+  height: 115%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* 头部亮线 */
+.upgrade-portrait-outline-head {
+  fill: none;
+  stroke: white;
+  stroke-width: 5.0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 0 9999;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0 10px rgba(200, 230, 255, 0.7))
+    drop-shadow(0 0 18px rgba(100, 180, 255, 0.4));
+}
+
+/* 拖尾渐变层 */
+.upgrade-portrait-outline-trail {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 4.0;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 0 9999;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 255, 255, 0.6))
+    drop-shadow(0 0 6px rgba(100, 180, 255, 0.25));
+}
+
+.upgrade-silhouette-img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(100, 180, 255, 0.15));
+}
+
+/* ========== 方案二：抖动头像 ========== */
+.upgrade-shake-card {
+  width: 239px;
+  height: 239px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1), height 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upgrade-shake-active {
+  animation: shakeLoop 5s ease-in-out infinite;
+}
+
+@keyframes shakeLoop {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  10%  { transform: translate(0, 0) rotate(0deg); }
+  13%  { transform: translate(-0.8px, 0.3px) rotate(-0.4deg); }
+  15%  { transform: translate(1px, -0.5px) rotate(0.5deg); }
+  17%  { transform: translate(-1.2px, 0.6px) rotate(-0.7deg); }
+  19%  { transform: translate(0.8px, -0.8px) rotate(0.6deg); }
+  21%  { transform: translate(-1.5px, 0.2px) rotate(-0.9deg); }
+  23%  { transform: translate(1.2px, 0.5px) rotate(0.8deg); }
+  25%  { transform: translate(-0.8px, -0.4px) rotate(-0.5deg); }
+  27%  { transform: translate(0.5px, 0.3px) rotate(0.3deg); }
+  29%  { transform: translate(-0.2px, -0.1px) rotate(-0.1deg); }
+  31%  { transform: translate(0, 0) rotate(0deg); }
+  58%  { transform: translate(0, 0) rotate(0deg); }
+  60%  { transform: translate(0.5px, -0.3px) rotate(0.3deg); }
+  62%  { transform: translate(-0.8px, 0.4px) rotate(-0.5deg); }
+  64%  { transform: translate(1px, -0.3px) rotate(0.6deg); }
+  66%  { transform: translate(-0.6px, 0.5px) rotate(-0.4deg); }
+  68%  { transform: translate(0.8px, 0.2px) rotate(0.5deg); }
+  70%  { transform: translate(-0.4px, -0.2px) rotate(-0.3deg); }
+  72%  { transform: translate(0.2px, 0.1px) rotate(0.1deg); }
+  74%  { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ========== 方案三：浮动头像 ========== */
+.upgrade-float-card {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1), height 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 28px 12px rgba(140, 210, 255, 0.3),
+    0 0 60px 20px rgba(100, 190, 255, 0.15);
+}
+
+/* 头像边缘柔化遮罩 */
+.upgrade-float-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px 8px rgba(20, 30, 50, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========== 头像周围漂浮粒子（衔接后续粒子过渡） ========== */
+.avatar-ambient-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.avatar-ambient-dot {
+  position: absolute;
+  width: var(--dot-size, 4px);
+  height: var(--dot-size, 4px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 220, 255, 0.9) 0%, rgba(140, 200, 255, 0) 70%);
+  animation: ambientFloat var(--float-dur, 3s) ease-in-out infinite var(--float-delay, 0s);
+  opacity: 0;
+}
+
+@keyframes ambientFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    transform: translate(var(--drift-x, 5px), var(--drift-y, -10px)) scale(1);
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x2, -5px), var(--drift-y2, 8px)) scale(0.4);
+  }
+}
+
+.upgrade-float-active {
+  animation: floatLoop 6s ease-in-out infinite;
+}
+
+@keyframes floatLoop {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* ========== 底部操作区域 ========== */
+.upgrade-action-area {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 428px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms ease, transform 500ms ease;
+  pointer-events: none;
+}
+
+.upgrade-action-show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* 开始升级按钮 */
+.upgrade-start-btn {
+  padding: 16px 24px;
+  border: none;
+  border-radius: 50px;
+  background: #0099FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.upgrade-start-btn:active {
+  opacity: 0.8;
+}
+
+.upgrade-btn-text {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.upgrade-btn-sparkle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 以后再说 */
+.upgrade-skip {
+  font-size: 14px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.upgrade-skip:active {
+  opacity: 0.5;
+}
+
+/* ========== 进度文案 ========== */
+.upgrade-progress-status {
+  position: absolute;
+  bottom: 88px;
+  left: 0;
+  width: 428px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+  animation: progressFadeIn 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.upgrade-progress-star {
+  flex-shrink: 0;
+}
+
+.upgrade-progress-text {
+  font-size: 15px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #1A1C1E;
+  letter-spacing: 0.3px;
+}
+
+.upgrade-progress-dots {
+  display: inline-block;
+  width: 1.5em;
+  text-align: left;
+}
+
+/* ========== 扫描阶段微浮动 ========== */
+.upgrade-scan-float {
+  animation: scanFloat 4s ease-in-out infinite !important;
+}
+
+@keyframes scanFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes progressFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== 脉冲收束过渡（点击唤醒后） ========== */
+
+/* 头像区域整体：柔和缩小 + 淡出，保持圆形 */
+.upgrade-avatar-area-center.upgrade-avatar-area-pulse-shrink {
+  transform: scale(0.15) translate(-50%, -50%) !important;
+  opacity: 0 !important;
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1), opacity 500ms ease 200ms !important;
+}
+
+/* 头像卡片：光晕柔和膨胀再收敛，保持圆形 */
+.upgrade-float-card-pulse {
+  animation: pulseGlowSoft 1000ms ease-out forwards !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+
+@keyframes pulseGlowSoft {
+  0% {
+    box-shadow:
+      0 0 28px 12px rgba(140, 210, 255, 0.3),
+      0 0 60px 20px rgba(100, 190, 255, 0.15);
+  }
+  25% {
+    box-shadow:
+      0 0 40px 20px rgba(140, 210, 255, 0.5),
+      0 0 80px 35px rgba(100, 190, 255, 0.25),
+      0 0 120px 50px rgba(80, 170, 255, 0.1);
+  }
+  100% {
+    box-shadow:
+      0 0 60px 30px rgba(200, 230, 255, 0.15),
+      0 0 100px 50px rgba(140, 210, 255, 0.05);
+  }
+}
+
+/* 柔和光晕容器 */
+.pulse-ripple-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* 柔和光晕扩散（无边框，纯高斯模糊光晕） */
+.pulse-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(
+    circle,
+    rgba(160, 215, 255, 0.4) 0%,
+    rgba(130, 200, 255, 0.15) 40%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: softGlowExpand 1000ms ease-out forwards;
+  opacity: 0;
+}
+
+.pulse-ripple-2 {
+  animation-delay: 150ms;
+  animation-duration: 1100ms;
+  filter: blur(30px);
+}
+
+.pulse-ripple-3 {
+  animation-delay: 300ms;
+  animation-duration: 1200ms;
+  filter: blur(40px);
+}
+
+@keyframes softGlowExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+/* 收束柔光点 */
+.pulse-light-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(180, 220, 255, 0.6) 40%,
+    transparent 70%
+  );
+  filter: blur(4px);
+  transform: translate(-50%, -50%) scale(0);
+  animation: softDotAppear 900ms ease 300ms forwards;
+}
+
+@keyframes softDotAppear {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
+
+/* phase 12: 头像区域淡出 → 揭晓沉睡 avatar */
+.upgrade-avatar-area-fadeout {
+  opacity: 0 !important;
+  transform: scale(0.9) !important;
+  transition: opacity 800ms ease, transform 800ms ease !important;
+}
+
+/* ===== 过渡方案 A：缩放吸入 ===== */
+.upgrade-avatar-area-center.upgrade-avatar-area-shrink-out {
+  transform: scale(0) translate(-50%, -50%) !important;
+  opacity: 0 !important;
+  transition: transform 800ms cubic-bezier(0.55, 0, 1, 0.45), opacity 600ms ease 200ms !important;
+}
+
+/* ===== 过渡方案 B：碎裂化粒子 ===== */
+.upgrade-avatar-area-shatter {
+  pointer-events: none;
+}
+
+.upgrade-avatar-area-center.upgrade-avatar-area-shatter {
+  transform: scale(1) translate(-50%, -50%) !important;
+}
+
+.upgrade-avatar-img-shatter-hide {
+  opacity: 0 !important;
+  transition: opacity 100ms ease !important;
+}
+
+.shatter-pieces-container {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: visible;
+  z-index: 5;
+}
+
+.shatter-piece {
+  position: absolute;
+  border-radius: 6px;
+  animation: shatterFly 900ms cubic-bezier(0.25, 0, 0.6, 1) var(--shard-delay) forwards;
+  opacity: 1;
+}
+
+@keyframes shatterFly {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(var(--shard-tx) * 0.6), calc(var(--shard-ty) * 0.6)) rotate(calc(var(--shard-rot) * 0.5)) scale(0.6);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translate(var(--shard-tx), var(--shard-ty)) rotate(var(--shard-rot)) scale(0.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(var(--shard-tx), var(--shard-ty)) rotate(var(--shard-rot)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ========================================== */
+/* ========== 揭晓沉睡 avatar ========== */
+/* ========================================== */
+
+.reveal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 428px;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ========== 维度选项卡片 ========== */
+.reveal-dimensions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.reveal-dim-card {
+  position: absolute;
+  width: 80px;
+  height: 72px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.2s ease;
+}
+
+.reveal-dim-card:active {
+  transform: scale(0.95);
+}
+
+/* 左侧卡片位置 */
+.reveal-dim-card-left:nth-child(1) {
+  left: 40px;
+  top: 160px;
+  animation: dimSlideFromLeft 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards;
+}
+
+.reveal-dim-card-left:nth-child(3) {
+  left: 48px;
+  top: 320px;
+  animation: dimSlideFromLeft 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards;
+}
+
+/* 右侧卡片位置 */
+.reveal-dim-card-right:nth-child(2) {
+  right: 40px;
+  top: 180px;
+  animation: dimSlideFromRight 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards;
+}
+
+.reveal-dim-card-right:nth-child(4) {
+  right: 48px;
+  top: 340px;
+  animation: dimSlideFromRight 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards;
+}
+
+/* 已填写态 */
+.reveal-dim-card-filled {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 未填写态 */
+.reveal-dim-card-unfilled {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px dashed rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.reveal-dim-card-unfilled.reveal-dim-card-left:nth-child(1) {
+  animation: dimSlideFromLeft 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards,
+             dimBreathGlow 3s ease-in-out 1s infinite;
+}
+
+.reveal-dim-card-unfilled.reveal-dim-card-left:nth-child(3) {
+  animation: dimSlideFromLeft 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards,
+             dimBreathGlow 3s ease-in-out 1s infinite;
+}
+
+.reveal-dim-card-unfilled.reveal-dim-card-right:nth-child(2) {
+  animation: dimSlideFromRight 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards,
+             dimBreathGlow 3s ease-in-out 1.5s infinite;
+}
+
+.reveal-dim-card-unfilled.reveal-dim-card-right:nth-child(4) {
+  animation: dimSlideFromRight 500ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--dim-index) * 150ms) forwards,
+             dimBreathGlow 3s ease-in-out 2s infinite;
+}
+
+.reveal-dim-icon {
+  color: #0099FF;
+  flex-shrink: 0;
+}
+
+.reveal-dim-card-unfilled .reveal-dim-icon {
+  color: rgba(0, 153, 255, 0.5);
+}
+
+.reveal-dim-label {
+  font-size: 11px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #1A1C1E;
+  line-height: 1;
+}
+
+.reveal-dim-card-unfilled .reveal-dim-label {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.reveal-dim-status {
+  font-size: 9px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+  line-height: 1;
+}
+
+.reveal-dim-card-unfilled .reveal-dim-status {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes dimSlideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dimSlideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dimBreathGlow {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  50% {
+    box-shadow: 0 2px 12px rgba(0, 153, 255, 0.15);
+  }
+}
+
+/* ========== 操作按钮 ========== */
+.reveal-actions {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  pointer-events: auto;
+  opacity: 0;
+  animation: revealActionsIn 600ms cubic-bezier(0.22, 1, 0.36, 1) 600ms forwards;
+}
+
+@keyframes revealActionsIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-regenerate-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.reveal-regenerate-btn:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.reveal-regenerate-btn:active {
+  transform: scale(0.9);
+  background: rgba(240, 240, 240, 1);
+}
+
+.reveal-soul-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  background: #0099FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 4px 16px rgba(0, 153, 255, 0.3);
+}
+
+.reveal-soul-btn:hover {
+  opacity: 0.92;
+}
+
+.reveal-soul-btn:active {
+  opacity: 0.8;
+  transform: scale(0.97);
+}
+
+.reveal-soul-btn-text {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.reveal-soul-btn-sparkle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 渗透流程：点击唤醒 文字链 */
+.infiltrate-awaken-link {
+  font-size: 15px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.infiltrate-awaken-icon {
+  color: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.infiltrate-awaken-link:active {
+  opacity: 0.5;
+}
+
+/* 渗透流程中操作区靠近小人 */
+.reveal-actions:has(.infiltrate-awaken-link) {
+  bottom: auto;
+  top: calc(50% + 190px);
+}
+
+/* ========== 方案一：剪影→揭色 ========== */
+.reveal-silhouette {
+  position: relative;
+  width: 240px;
+  height: 390px;
+}
+
+/* 底层：剪影（始终 brightness(0)）—— 直接显示，衔接前一阶段 */
+.reveal-silhouette-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0);
+  opacity: 1;
+  animation: revealSilhouetteShadow 1.8s ease-out forwards;
+}
+
+/* 上层：原图，从下往上揭色 */
+.reveal-silhouette-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  clip-path: inset(100% 0 0 0);
+  animation: revealSilhouetteClip 1.2s ease-out 0.6s forwards;
+}
+
+@keyframes revealSilhouetteShadow {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes revealSilhouetteClip {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ========== 方案二：光柱降临 ========== */
+.reveal-pillar {
+  position: relative;
+  width: 240px;
+  height: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal-pillar-beam {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 740px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.95) 15%,
+    rgba(200, 230, 255, 1) 50%,
+    rgba(255, 255, 255, 0.95) 85%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: revealPillarBeam 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 2;
+  filter: blur(4px);
+  opacity: 1;
+}
+
+.reveal-pillar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(1.05);
+  animation: revealPillarImg 1.2s ease-out 0.6s forwards;
+  z-index: 3;
+}
+
+.reveal-pillar-ripple {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0.3);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200, 230, 255, 0.5) 0%,
+    rgba(200, 230, 255, 0) 70%
+  );
+  animation: revealPillarRipple 1.5s ease-out 0.5s forwards;
+  z-index: 1;
+}
+
+@keyframes revealPillarBeam {
+  0% {
+    width: 4px;
+    opacity: 1;
+  }
+  15% {
+    width: 140px;
+    opacity: 1;
+  }
+  50% {
+    width: 180px;
+    opacity: 0.9;
+  }
+  80% {
+    width: 80px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 20px;
+    opacity: 0;
+  }
+}
+
+@keyframes revealPillarImg {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes revealPillarRipple {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+/* ========== 方案三：裂屏显现 ========== */
+.reveal-shatter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 428px;
+  height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reveal-shatter-crack {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 5;
+  filter: blur(0.5px);
+  transform-origin: center;
+}
+
+.reveal-crack-1 {
+  top: 30%;
+  left: 50%;
+  width: 2px;
+  height: 0;
+  transform: translateX(-50%) rotate(-15deg);
+  animation: revealCrackGrow 0.4s ease-out forwards;
+}
+
+.reveal-crack-2 {
+  top: 35%;
+  left: 48%;
+  width: 2px;
+  height: 0;
+  transform: translateX(-50%) rotate(25deg);
+  animation: revealCrackGrow 0.35s ease-out 0.1s forwards;
+}
+
+.reveal-crack-3 {
+  top: 40%;
+  left: 53%;
+  width: 1.5px;
+  height: 0;
+  transform: translateX(-50%) rotate(-8deg);
+  animation: revealCrackGrow 0.3s ease-out 0.2s forwards;
+}
+
+.reveal-shatter-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 6;
+  opacity: 0;
+  animation: revealShatterFlash 0.8s ease-out 0.5s forwards;
+}
+
+.reveal-shatter-img {
+  width: 240px;
+  height: 390px;
+  object-fit: contain;
+  z-index: 7;
+  opacity: 0;
+  transform: scale(1.06);
+  animation: revealShatterImg 1s ease-out 0.8s forwards;
+}
+
+@keyframes revealCrackGrow {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    height: 200px;
+    opacity: 1;
+  }
+}
+
+@keyframes revealShatterFlash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes revealShatterImg {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========== 方案四：碎光聚合 ========== */
+.reveal-particle {
+  position: relative;
+  width: 240px;
+  height: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal-particle-clickable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* ========== 沉睡小人身后：柔和氛围光效 ========== */
+.reveal-glow-backdrop {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  animation: glowBackdropIn 2s ease-out 1.4s forwards;
+}
+
+@keyframes glowBackdropIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* 点击唤醒后光效渐隐 */
+.reveal-glow-backdrop-fadeout {
+  animation: glowBackdropOut 1.2s ease-in forwards !important;
+}
+
+@keyframes glowBackdropOut {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* 柔和氛围光 — 大面积高斯模糊渐变，无硬边 */
+.glow-soft {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(100, 200, 255, 0.35) 0%,
+    rgba(80, 180, 255, 0.18) 30%,
+    rgba(60, 150, 255, 0.06) 60%,
+    transparent 100%
+  );
+  filter: blur(30px);
+  animation: glowSoftBreathe 4s ease-in-out infinite;
+}
+
+.glow-soft-2 {
+  width: 280px;
+  height: 420px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(140, 220, 255, 0.25) 0%,
+    rgba(100, 190, 255, 0.10) 40%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  animation: glowSoftBreathe 4s ease-in-out 2s infinite;
+}
+
+@keyframes glowSoftBreathe {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+/* 微弱旋转光晕 — 极淡的 conic 渐变 + 大模糊 */
+.reveal-glow-backdrop > .glow-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.50) 10deg,
+    rgba(255, 255, 255, 0.50) 25deg,
+    transparent 40deg,
+    transparent 55deg,
+    rgba(255, 255, 255, 0.45) 65deg,
+    rgba(255, 255, 255, 0.45) 85deg,
+    transparent 100deg,
+    transparent 115deg,
+    rgba(255, 255, 255, 0.55) 125deg,
+    rgba(255, 255, 255, 0.55) 145deg,
+    transparent 160deg,
+    transparent 175deg,
+    rgba(255, 255, 255, 0.48) 185deg,
+    rgba(255, 255, 255, 0.48) 205deg,
+    transparent 220deg,
+    transparent 235deg,
+    rgba(255, 255, 255, 0.50) 245deg,
+    rgba(255, 255, 255, 0.50) 265deg,
+    transparent 280deg,
+    transparent 295deg,
+    rgba(255, 255, 255, 0.45) 305deg,
+    rgba(255, 255, 255, 0.45) 325deg,
+    transparent 340deg,
+    transparent 360deg
+  );
+  filter: blur(6px);
+  -webkit-mask-image: radial-gradient(circle, black 25%, transparent 75%);
+  mask-image: radial-gradient(circle, black 25%, transparent 75%);
+  animation: glowRaysSpin 20s linear infinite;
+}
+
+@keyframes glowRaysSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.reveal-particle-simple .reveal-awaken-gif {
+  top: -88px;
+}
+
+.reveal-particle-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--p-size);
+  height: var(--p-size);
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.8), 0 0 16px 6px rgba(255, 255, 255, 0.4);
+  animation: revealParticleIn 2s ease-in var(--p-delay) forwards;
+  opacity: 0;
+}
+
+.reveal-particle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  filter: blur(16px);
+  transform: scale(0.85);
+  animation: revealParticleImg 1.4s ease-out 1.2s forwards;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 唤醒仪式 gif — 静态帧 & 播放共用定位 */
+.reveal-awaken-gif {
+  position: absolute;
+  width: 514px;
+  height: 514px;
+  top: -118px;
+  left: -139px;
+  z-index: 2;
+}
+
+/* 静态第一帧（canvas）：粒子聚合阶段显示 */
+.reveal-awaken-gif-static {
+  opacity: 0;
+  filter: blur(16px);
+  transform: scale(0.85);
+  animation: revealParticleImg 1.4s ease-out 1.2s forwards;
+}
+
+/* 静态帧渐隐（phase>=14 时添加） */
+.reveal-awaken-gif-static-hide {
+  opacity: 0 !important;
+  transition: opacity 300ms ease !important;
+  animation: none !important;
+}
+
+/* 播放中的 gif */
+.reveal-awaken-gif-play {
+  z-index: 3;
+  opacity: 0;
+  animation: awakenGifIn 200ms ease forwards;
+}
+
+@keyframes awakenGifIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== 唤醒氛围效果（小人落地后出现） ========== */
+.awaken-ambience {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* 光环爆发 — 从中心向外扩散的圆环 */
+.awaken-ring-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%) scale(0);
+  animation: ringBurst 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow:
+    0 0 20px 8px rgba(200, 230, 255, 0.3),
+    inset 0 0 20px 8px rgba(200, 230, 255, 0.15);
+}
+
+.awaken-ring-burst-2 {
+  border-color: rgba(180, 220, 255, 0.4);
+  border-width: 1.5px;
+  animation-delay: 200ms;
+  animation-duration: 1.5s;
+}
+
+@keyframes ringBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.9;
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(12);
+    opacity: 0;
+  }
+}
+
+/* 底部柔光晕 — 脚下光效 */
+.awaken-ground-glow {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(180, 220, 255, 0.45) 0%,
+    rgba(180, 220, 255, 0.2) 40%,
+    rgba(180, 220, 255, 0) 70%
+  );
+  opacity: 0;
+  animation: groundGlowIn 1s ease-out 300ms forwards;
+  filter: blur(6px);
+}
+
+@keyframes groundGlowIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0.3);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1.1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+/* 飘散星屑 — 缓缓上浮的小光点 */
+.awaken-star {
+  position: absolute;
+  bottom: 20%;
+  left: var(--star-left);
+  width: var(--star-size);
+  height: var(--star-size);
+  border-radius: 50%;
+  background: white;
+  box-shadow:
+    0 0 6px 2px rgba(200, 230, 255, 0.8),
+    0 0 12px 4px rgba(200, 230, 255, 0.4);
+  opacity: 0;
+  animation: starFloat var(--star-duration) ease-in-out var(--star-delay) infinite;
+}
+
+@keyframes starFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  15% {
+    opacity: 0.9;
+    transform: translateY(-20px) translateX(calc(var(--star-drift) * 0.2)) scale(1);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translateY(-80px) translateX(calc(var(--star-drift) * 0.7)) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-140px) translateX(var(--star-drift)) scale(0.3);
+  }
+}
+
+/* ========== 方案 A：保存形象按钮（simple） ========== */
+.reveal-save-action {
+  position: absolute;
+  bottom: 44px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 32px;
+  pointer-events: auto;
+  opacity: 0;
+  animation: revealSaveIn 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 左侧微调按钮（灰色圆角方形） */
+.reveal-tweak-btn {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.reveal-tweak-btn:active {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
+}
+
+/* 右侧保存按钮（蓝色大圆角） */
+.reveal-save-btn {
+  flex: 1;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: #4A9FFF;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal-save-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.reveal-save-btn-text {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.3px;
+}
+
+/* ========== 方案 B：gif 播放完成后操作面板（edit） ========== */
+.reveal-done-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  pointer-events: auto;
+  padding-bottom: 34px;
+  opacity: 0;
+  animation: revealSaveIn 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 再次生成 + 编辑形象 按钮行 */
+.reveal-edit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+.reveal-edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 40px;
+  background: rgba(13, 16, 49, 0.04);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.reveal-edit-btn:active {
+  background: rgba(13, 16, 49, 0.08);
+  transform: scale(0.97);
+}
+
+.reveal-edit-btn-icon {
+  flex-shrink: 0;
+}
+
+.reveal-edit-btn-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reveal-edit-btn-text {
+  font-size: 14px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+
+/* 保存按钮行（tweak + 蓝色按钮） */
+.reveal-save-action-row {
+  width: 343px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 保存形象大按钮（全宽） */
+.reveal-save-btn-full {
+  width: 343px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: #0099FF;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.reveal-save-btn-full:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.reveal-save-btn-full-text {
+  font-size: 17px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.3px;
+}
+
+/* 底部提示文字 */
+.reveal-save-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reveal-save-hint-text {
+  font-size: 14px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: rgba(60, 60, 67, 0.56);
+}
+
+.reveal-save-hint-link {
+  font-size: 14px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: #214CA5;
+  cursor: pointer;
+}
+
+.reveal-save-hint-link:active {
+  opacity: 0.6;
+}
+
+@keyframes revealSaveIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealParticleIn {
+  0% {
+    opacity: 0;
+    transform: translate(
+      calc(var(--p-start-x) - 50%),
+      calc(var(--p-start-y) - 50%)
+    );
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes revealParticleImg {
+  0% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* ========== 编辑QQ秀商城（全屏 926px） ========== */
+.shop-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 428px;
+  height: 926px;
+  background: #F5F6FA;
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.shop-panel-open {
+  transform: translateX(0);
+}
+
+.shop-header { position: absolute; top: 44px; left: 0; width: 428px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.shop-back { position: absolute; left: 0; top: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.shop-back img { width: 24px; height: 24px; }
+.shop-title { font-size: 17px; font-family: 'PingFang SC', sans-serif; font-weight: 500; color: rgba(0,0,0,0.9); }
+.shop-save-btn { position: absolute; right: 16px; top: 6px; width: 60px; height: 32px; border: none; border-radius: 16px; background: #0099FF; font-size: 14px; font-family: 'PingFang SC', sans-serif; font-weight: 400; color: white; cursor: pointer; }
+.shop-save-btn:active { opacity: 0.8; }
+
+.shop-avatar-zone { position: absolute; top: 104px; left: 102px; width: 225px; height: 366px; overflow: hidden; display: flex; align-items: flex-start; justify-content: center; }
+.shop-avatar-canvas { width: 400px; height: 400px; }
+.shop-avatar-shadow { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 130px; height: auto; }
+
+.shop-tools { position: absolute; top: 356px; right: 24px; width: 36px; height: 86px; background: rgba(255,255,255,0.8); border-radius: 31px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 14px 0; }
+.shop-tool-icon { width: 20px; height: 20px; cursor: pointer; }
+
+.shop-regen-btn { position: absolute; top: 424px; left: 16px; height: 32px; padding: 0 12px; background: rgba(255,255,255,0.8); border-radius: 40px; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; font-family: 'PingFang SC', sans-serif; font-weight: 400; color: rgba(0,0,0,0.9); }
+.shop-regen-btn:active { background: rgba(255,255,255,1); }
+.shop-regen-avatar { width: 18px; height: 18px; border-radius: 4px; object-fit: cover; }
+
+.shop-bottom { position: absolute; top: 470px; left: 0; width: 428px; bottom: 0; background: white; border-top-left-radius: 12px; border-top-right-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+
+.shop-tabs { width: 100%; height: 48px; display: flex; border-bottom: 0.5px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+.shop-tab { flex: 1; height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer; }
+.shop-tab-text { font-size: 16px; font-family: 'PingFang SC', sans-serif; font-weight: 400; color: rgba(0,0,0,0.9); }
+.shop-tab-text-active { font-size: 16px; font-family: 'PingFang SC', sans-serif; font-weight: 500; color: rgba(0,0,0,0.9); }
+.shop-tab-bar { position: absolute; bottom: 0; width: 32px; height: 3px; border-radius: 2px; background: #0099FF; opacity: 0; }
+.shop-tab-bar-show { opacity: 1; }
+
+.shop-sub-cats { width: 100%; height: 68px; background: white; display: flex; align-items: center; padding: 0 16px; gap: 8px; flex-shrink: 0; }
+.shop-sub-cat { height: 32px; padding: 0 14px; border-radius: 47px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-family: 'PingFang SC', sans-serif; font-weight: 400; color: rgba(0,0,0,0.9); cursor: pointer; }
+.shop-sub-cat-active { background: rgba(13,16,49,0.04); font-weight: 500; }
+
+.shop-items { flex: 1; overflow-y: auto; padding: 0 16px 20px; display: grid; grid-template-columns: repeat(3, 124px); gap: 12px; justify-content: center; align-content: start; }
+.shop-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.shop-item-thumb { width: 124px; height: 124px; border-radius: 12px; background: rgba(13,16,49,0.04); overflow: hidden; }
+.shop-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.shop-item-label { display: flex; align-items: baseline; }
+.shop-item-svip { font-size: 14px; font-family: 'Reddit Sans', sans-serif; font-weight: 400; color: #B97D33; }
+.shop-item-free { font-size: 12px; font-family: 'PingFang SC', sans-serif; font-weight: 400; color: #B97D33; }
+
+.shop-home-indicator { position: absolute; bottom: 0; left: 0; width: 428px; height: 34px; }
+.shop-home-bar { width: 148px; height: 5px; margin: 21px auto 0; background: black; border-radius: 2.5px; }
+
+/* ========== 保存退出：Overlay 淡出 ========== */
+.upgrade-overlay-save-fade {
+  animation: overlaySaveFade 800ms ease-out forwards !important;
+  pointer-events: none;
+}
+
+@keyframes overlaySaveFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ========== 保存退出方案一：Genie Effect（由 JS 逐帧驱动 clip-path + transform） ========== */
+/* 旧的 CSS keyframe 已移除，动画逻辑在 handleSave 的 rAF 循环中 */
+
+/* ========== 保存退出方案二：飞行小人 ========== */
+.save-fly-avatar {
+  position: absolute;
+  z-index: 150;
+  pointer-events: none;
+  /* 起始位置：半屏中间偏上（小人在半屏的 reveal-container 中居中） */
+  top: 432px;
+  left: 94px;
+  width: 240px;
+  height: 390px;
+  animation: flyToCorner 650ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.save-fly-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes flyToCorner {
+  0% {
+    top: 432px;
+    left: 94px;
+    width: 240px;
+    height: 390px;
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    top: 38px;
+    left: -8px;
+    width: 55px;
+    height: 55px;
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "qq-message-list",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tdesign-mobile-react": "^0.21.4"
+  },
+  "devDependencies": {
+    "@tdesign/d2c-utils": "^0.0.6",
+    "@types/html2canvas": "^0.5.35",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "dev-tweak-tool": "file:../dev-tweak-tool",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.8"
+  }
+}
