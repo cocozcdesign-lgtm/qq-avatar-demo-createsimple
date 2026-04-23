@@ -195,7 +195,7 @@ const MessageListPage: React.FC<{
       <AvatarUpgrade
         visible={upgradeVisible}
         onClose={() => setUpgradeVisible(false)}
-        avatarSrc={avatarSrc || '/assets/avatar.png'}
+        avatarSrc={avatarSrc || '/qq-avatar-demo-createsimple/assets/avatar.png'}
         variant={upgradeVariant}
         scanVariant={scanVariant}
         revealVariant={revealVariant}
@@ -350,7 +350,7 @@ const App: React.FC = () => {
       <MessageListPage
         key={`${isLoggedIn}-${variant}-${editable}-${scanVariant}-${revealVariant}-${flowType}-${transitionVariant}-${awakenVariant}-${saveVariant}-${saveExitVariant}-${introVariant}-${avatarEffect}`}
         mode={isLoggedIn ? 'logged-in' : 'logged-out'}
-        avatarSrc="/assets/avatar.png"
+        avatarSrc="/qq-avatar-demo-createsimple/assets/avatar.png"
         upgradeVariant={variant}
         scanVariant={scanVariant}
         revealVariant={revealVariant}

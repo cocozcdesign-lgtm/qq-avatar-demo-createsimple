@@ -75,7 +75,7 @@ const MessageList: React.FC<MessageListProps> = ({ mode = 'logged-out', avatarSr
       <AvatarUpgrade
         visible={showUpgrade}
         onClose={() => setShowUpgrade(false)}
-        avatarSrc={avatarSrc || '/assets/avatar.png'}
+        avatarSrc={avatarSrc || '/qq-avatar-demo-createsimple/assets/avatar.png'}
         variant={upgradeVariant}
         scanVariant={scanVariant}
         editable={editableTags}

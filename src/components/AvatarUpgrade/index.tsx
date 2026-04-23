@@ -396,7 +396,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
       d += ' Z';
       setContourPath(d);
     };
-    img.src = '/assets/avatar-nobg.png';
+    img.src = '/qq-avatar-demo-createsimple/assets/avatar-nobg.png';
   }, [scanVariant]);
 
   // gif 播放完成后进入 phase 15（保存形象）
@@ -516,7 +516,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
         const wrapper = document.createElement('div');
         wrapper.className = gifPlayEl.className; // reveal-awaken-gif reveal-awaken-gif-play
         const img = document.createElement('img');
-        img.src = '/assets/awaken-last-frame.png';
+        img.src = '/qq-avatar-demo-createsimple/assets/awaken-last-frame.png';
         img.style.cssText = 'width:100%;height:100%;';
         wrapper.appendChild(img);
         tempWrapper = wrapper;
@@ -701,7 +701,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
         {/* 升级阶段背景图层：dissolve 渐显 */}
         {flowType === 'full' && phase >= 7 && (
           <img
-            src="/assets/upgrade-bg.png"
+            src="/qq-avatar-demo-createsimple/assets/upgrade-bg.png"
             alt=""
             className="upgrade-bg-illustration"
           />
@@ -906,7 +906,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
                   </g>
                 </svg>
               )}
-              <img src="/assets/avatar-nobg.png" alt="avatar-nobg" className={`upgrade-avatar-nobg ${flowType === 'full' && phase >= 10 ? 'upgrade-avatar-nobg-show' : ''}`} />
+              <img src="/qq-avatar-demo-createsimple/assets/avatar-nobg.png" alt="avatar-nobg" className={`upgrade-avatar-nobg ${flowType === 'full' && phase >= 10 ? 'upgrade-avatar-nobg-show' : ''}`} />
               {/* 大图扫光层 */}
               {phase >= 9 && phase < 10 && <div className="upgrade-shine-sweep" />}
               {/* 人像扫描层：方案一扫光 */}
@@ -991,8 +991,8 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
             {/* 方案一：剪影→揭色 */}
             {activeReveal === 'silhouette' && (
               <div className="reveal-silhouette">
-                <img src="/assets/sleeping-avatar.png" alt="shadow" className="reveal-silhouette-shadow" />
-                <img src="/assets/sleeping-avatar.png" alt="sleeping" className="reveal-silhouette-img" />
+                <img src="/qq-avatar-demo-createsimple/assets/sleeping-avatar.png" alt="shadow" className="reveal-silhouette-shadow" />
+                <img src="/qq-avatar-demo-createsimple/assets/sleeping-avatar.png" alt="sleeping" className="reveal-silhouette-img" />
               </div>
             )}
 
@@ -1000,7 +1000,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
             {activeReveal === 'pillar' && (
               <div className="reveal-pillar">
                 <div className="reveal-pillar-beam" />
-                <img src="/assets/sleeping-avatar.png" alt="sleeping" className="reveal-pillar-img" />
+                <img src="/qq-avatar-demo-createsimple/assets/sleeping-avatar.png" alt="sleeping" className="reveal-pillar-img" />
                 <div className="reveal-pillar-ripple" />
               </div>
             )}
@@ -1048,7 +1048,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
                               canvas.dataset.drawn = '1';
                             }
                           };
-                          img.src = '/assets/awaken-ceremony.gif';
+                          img.src = '/qq-avatar-demo-createsimple/assets/awaken-ceremony.gif';
                         }
                       }}
                       className={`reveal-awaken-gif reveal-awaken-gif-static ${phase >= 14 ? 'reveal-awaken-gif-static-hide' : ''}`}
@@ -1067,7 +1067,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
                             canvas.dataset.drawn = '1';
                           }
                         };
-                        img.src = '/assets/awaken-ceremony.gif';
+                        img.src = '/qq-avatar-demo-createsimple/assets/awaken-ceremony.gif';
                       }
                     }}
                     className="reveal-awaken-gif reveal-awaken-gif-static"
@@ -1262,7 +1262,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
     {/* ========== 飞行小人（fly-out 方案） ========== */}
     {savingFlyout && (
       <div className="save-fly-avatar">
-        <img src="/assets/awaken-last-frame.png" alt="fly" className="save-fly-avatar-img" />
+        <img src="/qq-avatar-demo-createsimple/assets/awaken-last-frame.png" alt="fly" className="save-fly-avatar-img" />
       </div>
     )}
 
@@ -1271,7 +1271,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
       {/* 导航栏（top:44 状态栏下方） */}
       <div className="shop-header">
         <div className="shop-back" onClick={() => setShopOpen(false)}>
-          <img src="/assets/shop/4.svg" alt="back" width="24" height="24" />
+          <img src="/qq-avatar-demo-createsimple/assets/shop/4.svg" alt="back" width="24" height="24" />
         </div>
         <span className="shop-title">编辑QQ秀</span>
         <button className="shop-save-btn">保存</button>
@@ -1279,19 +1279,19 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
 
       {/* 形象预览（居中） */}
       <div className="shop-avatar-zone">
-        <img src="/assets/awaken-last-frame.png" alt="avatar" className="shop-avatar-canvas" />
-        <img src="/assets/shop/17.png" alt="" className="shop-avatar-shadow" />
+        <img src="/qq-avatar-demo-createsimple/assets/awaken-last-frame.png" alt="avatar" className="shop-avatar-canvas" />
+        <img src="/qq-avatar-demo-createsimple/assets/shop/17.png" alt="" className="shop-avatar-shadow" />
       </div>
 
       {/* 右侧工具条 */}
       <div className="shop-tools">
-        <img src="/assets/shop/5.svg" alt="" className="shop-tool-icon" />
-        <img src="/assets/shop/6.svg" alt="" className="shop-tool-icon" />
+        <img src="/qq-avatar-demo-createsimple/assets/shop/5.svg" alt="" className="shop-tool-icon" />
+        <img src="/qq-avatar-demo-createsimple/assets/shop/6.svg" alt="" className="shop-tool-icon" />
       </div>
 
       {/* 重新生成按钮 */}
       <div className="shop-regen-btn">
-        <img src="/assets/shop/regen-icon.svg" alt="" width="18" height="18" />
+        <img src="/qq-avatar-demo-createsimple/assets/shop/regen-icon.svg" alt="" width="18" height="18" />
         <span>重新生成</span>
       </div>
 

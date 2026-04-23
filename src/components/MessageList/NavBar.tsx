@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const assetBase = '/assets/CodeBuddyAssets/4337_29293';
+const assetBase = '/qq-avatar-demo-createsimple/assets/CodeBuddyAssets/4337_29293';
 
 export type AvatarEffect =
   | 'peek-avatar'
@@ -109,7 +109,7 @@ const NavBar: React.FC<NavBarProps> = ({ avatarSrc, onAvatarClick, avatarEffect 
                   </div>
                   {/* 背面：小人剪影 */}
                   <div className="nav-flip-face nav-flip-back">
-                    <img src="/assets/小人剪影.png" alt="silhouette" className="nav-flip-silhouette-img" />
+                    <img src="/qq-avatar-demo-createsimple/assets/小人剪影.png" alt="silhouette" className="nav-flip-silhouette-img" />
                   </div>
                 </div>
               ) : avatarEffect === 'organic-blob' ? (
@@ -139,7 +139,7 @@ const NavBar: React.FC<NavBarProps> = ({ avatarSrc, onAvatarClick, avatarEffect 
               {/* QQ秀剪影 */}
               {avatarEffect === 'silhouette-hint' && (
                 <div className="nav-avatar-silhouette">
-                  <img src="/assets/小人剪影.png" alt="silhouette" className="nav-avatar-silhouette-img" />
+                  <img src="/qq-avatar-demo-createsimple/assets/小人剪影.png" alt="silhouette" className="nav-avatar-silhouette-img" />
                 </div>
               )}
               {/* 能量圈 */}

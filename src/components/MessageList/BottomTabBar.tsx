@@ -1,6 +1,6 @@
 import React from 'react';
 
-const assetBase = '/assets/CodeBuddyAssets/4337_29293';
+const assetBase = '/qq-avatar-demo-createsimple/assets/CodeBuddyAssets/4337_29293';
 
 const BottomTabBar: React.FC = () => {
   return (

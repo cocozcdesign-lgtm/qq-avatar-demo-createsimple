@@ -30,7 +30,7 @@ export interface MessageItemData {
   customAvatar?: string | boolean;  // 自定义头像类型
 }
 
-const assetBase = '/assets/CodeBuddyAssets/4337_29293';
+const assetBase = '/qq-avatar-demo-createsimple/assets/CodeBuddyAssets/4337_29293';
 
 export const messageData: MessageItemData[] = [
   {
@@ -408,7 +408,7 @@ export interface EmotionMessageItemData extends MessageItemData {
   emotion: EmotionType;
 }
 
-const assetBasePath = '/assets/CodeBuddyAssets/4337_29293';
+const assetBasePath = '/qq-avatar-demo-createsimple/assets/CodeBuddyAssets/4337_29293';
 
 export const emotionMessageData: EmotionMessageItemData[] = [
   {
