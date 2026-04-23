@@ -1080,7 +1080,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
                       if (el && !gifCreatedRef.current) {
                         gifCreatedRef.current = true;
                         const img = document.createElement('img');
-                        img.src = `/assets/awaken-ceremony.gif?t=${Date.now()}`;
+                        img.src = `/qq-avatar-demo-createsimple/assets/awaken-ceremony.gif?t=${Date.now()}`;
                         img.alt = 'awaken';
                         img.style.width = '100%';
                         img.style.height = '100%';
@@ -1316,7 +1316,7 @@ const AvatarUpgrade: React.FC<AvatarUpgradeProps> = ({
           {[8, 9, 10, 11, 12, 13, 14, 15, 16].map(n => (
             <div key={n} className="shop-item">
               <div className="shop-item-thumb">
-                <img src={`/assets/shop/${n}.png`} alt="" />
+                <img src={`/qq-avatar-demo-createsimple/assets/shop/${n}.png`} alt="" />
               </div>
               {n <= 10 && <div className="shop-item-label"><span className="shop-item-svip">SVIP</span><span className="shop-item-free">免费</span></div>}
             </div>
